@@ -54,7 +54,10 @@ class OC_USER_PWAUTH extends OC_User_Backend implements OC_User_Interface {
 	// those functions are directly inspired by user_ldap
 	
 	public function implementsAction($actions) {
-		return (bool)((OC_USER_BACKEND_CHECK_PASSWORD) & $actions);
+		return (bool)((
+			OC_USER_BACKEND_CHECK_PASSWORD
+			| OC_USER_BACKEND_GET_DISPLAYNAME
+		) & $actions);
 	}
 	
 	private function userMatchesFilter($user) {
@@ -126,6 +129,32 @@ class OC_USER_PWAUTH extends OC_User_Backend implements OC_User_Interface {
 		
 		return array_slice($returnArray, $offset, $limit);
 	}
+
+	/**
+	 * @brief Get a list of all display names
+	 * @returns array with  all displayNames (value) and the corresponding uids (key)
+	 *
+	 * Get a list of all display names and user ids.
+	 */
+	public function getDisplayNames($search = '', $limit = null, $offset = null) {
+		$displayNames = array();
+		$users = $this->getUsers($search, $limit, $offset);
+		foreach ($users as $user) {
+			$displayNames[$user] = $this->getDisplayName($user);
+		}
+		return $displayNames;
+	}
+
+	/**
+	 * @brief get display name of the user
+	 * @param $uid user ID of the user
+	 * @return display name
+	 */
+	public function getDisplayName($uid) {
+		$user = posix_getpwnam($uid);
+		return trim($user['gecos']) != '' ? $user['gecos'] : $user['name'];
+	}
+
 }
 
 ?>
