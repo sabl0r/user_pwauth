@@ -18,13 +18,18 @@
 ?>
 <form id="pwauth" action="#" method="post">
 	<fieldset class="personalblock">
-		<legend><strong>Unix Authentication</strong></legend>
+		<legend>
+			<strong>Unix Authentication</strong>
+		</legend>
 		<p>
-		<label for="pwauth_path"><?php echo $l->t('pwauth_path'); ?></label><input type="text" id="pwauth_path" name="pwauth_path" value="<?php echo $_['pwauth_path']; ?>" />
-		</p><p>
-		<label for="uid_list"><?php echo $l->t('uid_list');?></label><input type="text" id="uid_list" name="uid_list" value="<?php echo $_['uid_list']; ?>"  original-title="<?php echo $l->t('uid_list_original-title'); ?>"/>
+			<label for="pwauth_path"><?php echo $l->t('pwauth_path'); ?></label>
+			<input type="text" id="pwauth_path" name="pwauth_path" value="<?php echo $_['pwauth_path']; ?>" />
 		</p>
-		<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken">
+		<p>
+			<label id="uid_list_label" for="uid_list"><?php echo $l->t('uid_list');?></label>
+			<textarea id="uid_list" name="uid_list" original-title="<?php echo $l->t('uid_list_original-title'); ?>"><?php echo $_['uid_list']; ?></textarea>
+		</p>
+		<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken'] ?>" id="requesttoken" />
 		<input type="submit" value="Save" />
 	</fieldset>
 </form>

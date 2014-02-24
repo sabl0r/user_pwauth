@@ -39,6 +39,8 @@ if ($_POST) {
 	}
 }
 
+OCP\Util::addStyle('user_pwauth', 'settings');
+
 // fill template
 $tmpl = new OC_Template( 'user_pwauth', 'settings');
 $tmpl->assign( 'uid_list', OC_Appconfig::getValue('user_pwauth', 'uid_list', OC_USER_BACKEND_PWAUTH_UID_LIST));
