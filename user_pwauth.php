@@ -154,7 +154,7 @@ class USER_PWAUTH extends \OC_User_Backend implements \OCP\UserInterface {
 
 		if(!empty($search)) {
 			$returnArray = array_filter($returnArray, function($user) use ($search){
-				return strripos($user, $search) !== false;
+				return strripos($user, $search) !== false || strripos($this->getDisplayName($user), $search) !== false;
 			});
 		} 
 
